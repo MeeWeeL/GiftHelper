@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "title": "Шоколад",
+    "description": "Ассорти шоколада БЕЗ САХАРА 18 плиток ШоколадБери",
+    "price": 1500,
+    "imageUrl": "meeweel.pserver.ru/images/gifthelper/chocolate_berry.png",
+    "ozonUrl": "https://www.ozon.ru/product/assorti-shokolada-bez-sahara-18-plitok-shokoladberi-585856995/"
+  },
+  {
+    "id": 2,
+    "title": "Дичь какая-то",
+    "description": "Подарочный мужской набор мясных деликатесов \"Дичь какая-то\" в подарок мужчине на день рождения, на юбилей",
+    "price": 1500,
+    "imageUrl": "meeweel.pserver.ru/images/gifthelper/dich.png",
+    "ozonUrl": "https://www.ozon.ru/product/podarochnyy-muzhskoy-nabor-myasnyh-delikatesov-dich-kakaya-to-v-podarok-muzhchine-na-den-rozhdeniya-722090619/"
+  },
+  {
+    "id": 3,
+    "title": "Chocolate 3",
+    "description": "Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate ",
+    "price": 1500,
+    "imageUrl": null,
+    "ozonUrl": null
+  },
+  {
+    "id": 4,
+    "title": "Карманный принтер",
+    "description": "Портативный цветной фотопринтер Xiaomi Mi Portable Photo Printer AR ZINK Global (XMKDDYJ01HT / TEJ4018GL) портативный / карманный принтер с функцией дополнительной реальности",
+    "price": 5500,
+    "imageUrl": null,
+    "ozonUrl": "https://www.ozon.ru/product/mini-printer-portativnyy-tsvetnoy-fotoprinter-xiaomi-mi-portable-photo-printer-ar-zink-1433550284/"
+  },
+  {
+    "id": 5,
+    "title": "Набор для приготовления шоколада",
+    "description": "Набор для приготовления молочного шоколада ChocoSet Milk",
+    "price": 2400,
+    "imageUrl": "meeweel.pserver.ru/images/gifthelper/chocobox.png",
+    "ozonUrl": null
+  },
+  {
+    "id": 6,
+    "title": "Chocolate 6",
+    "description": "Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate ",
+    "price": 1500,
+    "imageUrl": null,
+    "ozonUrl": null
+  },
+  {
+    "id": 7,
+    "title": "Chocolate 7",
+    "description": "Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate ",
+    "price": 1500,
+    "imageUrl": null,
+    "ozonUrl": null
+  },
+  {
+    "id": 8,
+    "title": "Chocolate 8",
+    "description": "Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate ",
+    "price": 1500,
+    "imageUrl": null,
+    "ozonUrl": null
+  },
+  {
+    "id": 9,
+    "title": "Chocolate 9",
+    "description": "Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate ",
+    "price": 1500,
+    "imageUrl": null,
+    "ozonUrl": null
+  },
+  {
+    "id": 10,
+    "title": "Chocolate 10",
+    "description": "Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate ",
+    "price": 1500,
+    "imageUrl": null,
+    "ozonUrl": null
+  },
+  {
+    "id": 11,
+    "title": "Chocolate 11",
+    "description": "Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate ",
+    "price": 1500,
+    "imageUrl": null,
+    "ozonUrl": null
+  },
+  {
+    "id": 12,
+    "title": "Chocolate 12",
+    "description": "Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate ",
+    "price": 1500,
+    "imageUrl": null,
+    "ozonUrl": null
+  },
+  {
+    "id": 13,
+    "title": "Chocolate 13",
+    "description": "Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate Chocolate ",
+    "price": 1500,
+    "imageUrl": null,
+    "ozonUrl": null
+  }
+]
