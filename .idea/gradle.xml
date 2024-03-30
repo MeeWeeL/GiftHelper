@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/domain/models" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/menu" />
+            <option value="$PROJECT_DIR$/features/offer-new-gift" />
             <option value="$PROJECT_DIR$/features/search" />
           </set>
         </option>

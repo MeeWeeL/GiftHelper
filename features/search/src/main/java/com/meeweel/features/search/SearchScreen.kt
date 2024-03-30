@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.meeweel.core.navigation.NavigationState
+import com.meeweel.core.ui_components.MeCard
 import com.meeweel.core.ui_components.R
 import com.meeweel.domain.models.Gift
 import com.meeweel.ui_base.theme.MeTheme
@@ -35,24 +36,41 @@ fun SearchScreen(
     navigationState: NavigationState,
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
-    val giftList = viewModel.state.value.giftList
-    if (giftList == null) {
-        Text(text = "No content")
-    } else {
-        SearchResult(giftList)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 8.dp),
+    ) {
+        val giftList = viewModel.state.value.giftList
+        if (giftList == null) {
+            repeat(7) {
+                MeCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(180.dp),
+                    isLoading = true,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        } else {
+            SearchResult(giftList)
+        }
     }
 }
 
 @Composable
 fun SearchResult(giftList: List<Gift>) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+    ) {
         items(items = giftList) {
+            Spacer(modifier = Modifier.height(4.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 GiftCard(gift = it)
             }
+            Spacer(modifier = Modifier.height(4.dp))
         }
     }
 }
@@ -62,9 +80,7 @@ fun GiftCard(gift: Gift) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(180.dp)
-            .padding(horizontal = 8.dp)
-            .padding(vertical = 4.dp),
+            .height(180.dp),
     ) {
         Card(
             modifier = Modifier

@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.library)
     alias(libs.plugins.kotlin)
@@ -7,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.meeweel.data.impl"
+    namespace = "com.meeweel.features.offer_new_gift"
     compileSdk = rootProject.extra["compileSdk"] as Int
 
     defaultConfig {
@@ -20,12 +19,18 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "BASE_URL", "\"https://9999\"")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
-        debug {
-            buildConfigField("String", "BASE_URL", "\"https://9999\"")
-        }
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion =
+            rootProject.extra["kotlinCompilerExtensionVersion"] as String
     }
     compileOptions {
         sourceCompatibility = rootProject.extra["javaVersion"] as JavaVersion
@@ -34,31 +39,31 @@ android {
     kotlinOptions {
         jvmTarget = rootProject.extra["jvmTarget"] as String
     }
-    buildFeatures {
-        buildConfig = true
-    }
 }
 
 dependencies {
-    implementation(project(":core:common"))
+    implementation(project(":core:navigation"))
+    implementation(project(":core:base"))
+    implementation(project(":core:ui-base"))
     implementation(project(":domain:models"))
-    implementation(project(":data:api"))
+    implementation(project(":domain:api"))
+    implementation(project(":core:ui-components"))
 
     implementation(libs.core)
     implementation(libs.appcompat)
+    implementation(libs.material)
+
+    // Compose
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
+    implementation(libs.accompanistController)
+    implementation(libs.composeNavigation)
+    debugImplementation(libs.bundles.composeDebug)
 
     // Hilt
     implementation(libs.bundles.hilt)
     kapt(libs.bundles.hiltKapt)
-
-    // Network
-    implementation(libs.bundles.retrofit)
-    implementation(libs.retrofitConverterMoshi)
-    implementation(libs.moshiKotlin)
-
-    // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.junitExt)
     androidTestImplementation(libs.espresso)
-    androidTestImplementation(libs.kaspresso)
 }

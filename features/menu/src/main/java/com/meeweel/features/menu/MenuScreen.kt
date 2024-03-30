@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
@@ -20,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.meeweel.core.navigation.NavItemOffer
 import com.meeweel.core.navigation.NavItemSearch
 import com.meeweel.core.navigation.NavigationState
 import com.meeweel.core.ui_components.MeCard
@@ -31,7 +33,10 @@ fun MenuScreen(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         AdvertisingBox()
-        MenuBox { navigationState.navigateTo(NavItemSearch.GraphSearch.route) }
+        MenuBox(
+            onFindClick = { navigationState.navigateTo(NavItemSearch.GraphSearch.route) },
+            onOfferClick = { navigationState.navigateTo(NavItemOffer.GraphOffer.route) },
+        )
     }
 }
 
@@ -43,9 +48,17 @@ fun ColumnScope.AdvertisingBox() {
 }
 
 @Composable
-fun ColumnScope.MenuBox(onClick: () -> Unit) {
+fun ColumnScope.MenuBox(
+    onFindClick: () -> Unit,
+    onOfferClick: () -> Unit,
+) {
     ScreenBox {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -53,11 +66,11 @@ fun ColumnScope.MenuBox(onClick: () -> Unit) {
             ) {
                 MeCard(
                     modifier = Modifier.fillMaxSize(),
-                    marginAll = 16.dp,
-                    onClick = onClick,
+                    onClick = onFindClick,
                 ) {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier.padding(4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_search),
@@ -66,49 +79,37 @@ fun ColumnScope.MenuBox(onClick: () -> Unit) {
                         Spacer(modifier = Modifier.width(32.dp))
                         Text(
                             fontSize = 24.sp,
-                            text = "Find Gift",
+                            text = "Найти идею для подарка",
                         )
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .padding(horizontal = 8.dp),
+                    .weight(1f),
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .weight(1f)
-                        .padding(horizontal = 8.dp)
+                        .weight(1f),
                 ) {
                     MeCard(
                         modifier = Modifier.fillMaxSize(),
-                        isSoon = true,
+                        onClick = onOfferClick,
                     ) {
-                        Text(text = "Favorite")
-                    }
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(1f)
-                        .padding(horizontal = 8.dp)
-                ) {
-                    MeCard(
-                        modifier = Modifier.fillMaxSize(),
-                        isSoon = true,
-                    ) {
-                        Text(text = "Settings")
+                        Text(text = "Предложить идею")
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
             ) {}
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
@@ -127,7 +128,11 @@ fun ColumnScope.ScreenBox(content: @Composable () -> Unit) {
 @Composable
 @Preview(showBackground = true)
 fun MenuBoxPreview() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        MenuBox {}
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(380.dp),
+    ) {
+        MenuBox({}, {})
     }
 }

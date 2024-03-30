@@ -8,6 +8,7 @@ import com.meeweel.features.search.SearchContract.Effect
 import com.meeweel.features.search.SearchContract.Event
 import com.meeweel.features.search.SearchContract.State
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +20,7 @@ class SearchViewModel @Inject constructor(
     override fun setInitialState() = State()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             when (val result = getGiftList.invoke()) {
                 is LoadResult.Done -> setState { it.copy(giftList = result.result) }
                 is LoadResult.Error -> setEffect { Effect.ShowErrorMessage(result.message) }

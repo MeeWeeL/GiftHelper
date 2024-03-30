@@ -1,13 +1,11 @@
-package com.meeweel.data.api
+package com.meeweel.domain.api
 
 import android.graphics.Bitmap
-import com.meeweel.domain.models.Gift
 import com.meeweel.domain.models.LoadResult
 
-interface GiftRepository {
+interface SendOfferUseCase {
 
-    suspend fun getGiftList(): LoadResult<List<Gift>>
-    suspend fun sendOffer(
+    suspend operator fun invoke(
         title: String,
         description: String,
         price: Int,

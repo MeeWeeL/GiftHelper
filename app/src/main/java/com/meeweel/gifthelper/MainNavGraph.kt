@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import com.meeweel.core.navigation.NavItemMenu
 import com.meeweel.core.navigation.NavigationState
 import com.meeweel.features.menu.navGraphMenu
+import com.meeweel.features.offer_new_gift.navGraphOffer
 import com.meeweel.features.search.navGraphSearch
 
 @Composable
@@ -25,5 +26,6 @@ fun MainNavGraph(
     ) {
         navGraphMenu(navigationState)
         navGraphSearch(navigationState)
+        navGraphOffer(navigationState)
     }
 }

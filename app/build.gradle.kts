@@ -69,6 +69,7 @@ dependencies {
     implementation(project(":domain:models"))
     implementation(project(":features:menu"))
     implementation(project(":features:search"))
+    implementation(project(":features:offer-new-gift"))
 
     implementation(libs.core)
     implementation(libs.bundles.lifecycle)
