@@ -2,41 +2,19 @@ package com.meeweel.ui_base.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.meeweel.ui_base.theme.color.CardBackground
-import com.meeweel.ui_base.theme.color.TextHeaderColor
-import com.meeweel.ui_base.theme.color.TextTitleColor
-import com.meeweel.ui_base.theme.typography.Typography
-
-private val LocalColors = staticCompositionLocalOf { LightColorScheme }
-
-private val DarkColorScheme = getEmColors(
-    material = darkColorScheme(),
-    headerText = Color(0xFFFFFFFF),
-)
-
-private val LightColorScheme = getEmColors(
-    material = lightColorScheme(),
-)
-
-fun getEmColors(
-    material: ColorScheme,
-    headerText: Color = TextHeaderColor,
-) = MeColors(
-    material = material,
-    headerText = headerText,
-)
+import com.meeweel.ui_base.theme.color.DarkColorScheme
+import com.meeweel.ui_base.theme.color.LightColorScheme
+import com.meeweel.ui_base.theme.color.LocalColors
+import com.meeweel.ui_base.theme.color.MeColors
+import com.meeweel.ui_base.theme.typography.MeTypography
 
 @Composable
 fun MeTheme(
@@ -69,18 +47,11 @@ fun MeTheme(
     CompositionLocalProvider(LocalColors provides colorScheme) {
         MaterialTheme(
             colorScheme = colorScheme.material,
-            typography = Typography,
+            typography = MeTheme.typography.typography,
             content = content
         )
     }
 }
-
-data class MeColors(
-    val material: ColorScheme,
-    val headerText: Color = TextHeaderColor,
-    val titleText: Color = TextTitleColor,
-    val cardBackground: Color = CardBackground,
-)
 
 object MeTheme {
 
@@ -88,4 +59,9 @@ object MeTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalColors.current
+
+    val typography: MeTypography
+        @Composable
+        @ReadOnlyComposable
+        get() = MeTypography
 }
