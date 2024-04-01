@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="menu_screen_find_gift_idea">Найти идею для подарка</string>
+    <string name="menu_screen_offer_gift_idea">Предложить идею</string>
+</resources>

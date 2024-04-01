@@ -41,7 +41,6 @@ fun MeCard(
     marginHorizontal: Dp = 0.dp,
     marginVertical: Dp = 0.dp,
     underCardContent: @Composable ColumnScope.() -> Unit = {},
-    underCardSpace: Dp = 0.dp,
     contentAlignment: Alignment = Alignment.Center,
     content: @Composable BoxScope.() -> Unit = {},
 ) {

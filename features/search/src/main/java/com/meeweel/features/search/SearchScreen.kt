@@ -41,36 +41,35 @@ fun SearchScreen(
             .fillMaxSize()
             .padding(horizontal = 8.dp),
     ) {
-        val giftList = viewModel.state.value.giftList
-        if (giftList == null) {
-            repeat(7) {
-                MeCard(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(180.dp),
-                    isLoading = true,
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-        } else {
-            SearchResult(giftList)
-        }
+        SearchResult(viewModel.state.value.giftList)
     }
 }
 
 @Composable
-fun SearchResult(giftList: List<Gift>) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        items(items = giftList) {
-            Spacer(modifier = Modifier.height(4.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                GiftCard(gift = it)
+fun SearchResult(giftList: List<Gift>?) {
+    if (giftList == null) {
+        repeat(7) {
+            MeCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(120.dp),
+                isLoading = true,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+    } else {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            items(items = giftList) {
+                Spacer(modifier = Modifier.height(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    GiftCard(gift = it)
+                }
+                Spacer(modifier = Modifier.height(4.dp))
             }
-            Spacer(modifier = Modifier.height(4.dp))
         }
     }
 }
@@ -80,26 +79,23 @@ fun GiftCard(gift: Gift) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(180.dp),
+            .height(120.dp),
     ) {
         Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp),
+            modifier = Modifier.fillMaxSize(),
             shape = RoundedCornerShape(8.dp),
             colors = CardDefaults.cardColors(containerColor = MeTheme.colors.cardBackground)
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(180.dp)
-                    .padding(all = 4.dp),
+                    .height(180.dp),
             ) {
                 Card(
                     modifier = Modifier
                         .fillMaxHeight()
-                        .width(100.dp),
-                    shape = RoundedCornerShape(12.dp),
+                        .width(120.dp),
+                    shape = RoundedCornerShape(0.dp),
                 ) {
                     Image(
                         modifier = Modifier.fillMaxSize(),
@@ -109,7 +105,9 @@ fun GiftCard(gift: Gift) {
                 }
                 Spacer(modifier = Modifier.width(8.dp))
                 Column(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(all = 4.dp),
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),

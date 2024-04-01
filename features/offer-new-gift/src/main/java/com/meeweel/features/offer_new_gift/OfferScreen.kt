@@ -30,9 +30,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -48,68 +50,117 @@ fun OfferScreen(
             .padding(16.dp)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "Предложить свою идею для подарка",
-            textAlign = TextAlign.Center,
-            fontSize = 26.sp,
-            fontWeight = FontWeight.W500,
+        ScreenHeader()
+        Spacer(modifier = Modifier.height(16.dp))
+        GiftTitleTextField(
+            title = viewModel.state.value.title,
+            onTextChange = { text -> viewModel.setEvent(Event.OnChangeTitle(text)) },
         )
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = viewModel.state.value.title,
-            onValueChange = { value ->
-                viewModel.setEvent(Event.OnChangeTitle(value))
-            },
-            modifier = Modifier.fillMaxWidth(),
-            maxLines = 2,
-            placeholder = { Text(text = "Название") },
+        GiftPriceTextField(
+            price = viewModel.state.value.price,
+            onPriceChange = { value -> viewModel.setEvent(Event.OnChangePrice(value)) },
         )
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = viewModel.state.value.price,
-            onValueChange = { value ->
-                viewModel.setEvent(Event.OnChangePrice(value))
-            },
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            placeholder = { Text(text = "Приблизительная цена") },
+        GiftOzonLinkTextField(
+            ozonUrl = viewModel.state.value.ozonUrl,
+            onValueChange = { value -> viewModel.setEvent(Event.OnChangeOzonUrl(value)) },
         )
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = viewModel.state.value.ozonUrl,
-            onValueChange = { value ->
-                viewModel.setEvent(Event.OnChangeOzonUrl(value))
-            },
-            modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
-            placeholder = { Text(text = "Ссылка на Ozon") },
+        GiftDescriptionTextField(
+            description = viewModel.state.value.description,
+            onValueChange = { value -> viewModel.setEvent(Event.OnChangeDescription(value)) },
         )
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = viewModel.state.value.description,
-            onValueChange = { value ->
-                viewModel.setEvent(Event.OnChangeDescription(value))
-            },
-            modifier = Modifier.fillMaxWidth(),
-            minLines = 3,
-            maxLines = 4,
-            placeholder = { Text(text = "Описание") },
+        PickImageFromGallery(
+            actualImage = viewModel.state.value.image,
+            onSetImageClick = { viewModel.setEvent(Event.OnSetImage(it)) },
         )
-        PickImageFromGallery(viewModel)
+        Spacer(modifier = Modifier.height(16.dp))
         Button(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp),
             onClick = { viewModel.setEvent(Event.OnSendOffer) }) {
-            Text(text = "Предложить")
+            Text(text = stringResource(R.string.offer_screen_offer_gift_button_text))
         }
     }
 }
 
+@Composable
+fun ScreenHeader() {
+    Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = stringResource(R.string.offer_screen_offer_your_gift_idea),
+        textAlign = TextAlign.Center,
+        fontSize = 26.sp,
+        fontWeight = FontWeight.W500,
+    )
+}
+
+@Composable
+fun GiftTitleTextField(
+    title: String,
+    onTextChange: (String) -> Unit,
+) {
+    OutlinedTextField(
+        value = title,
+        onValueChange = onTextChange,
+        modifier = Modifier.fillMaxWidth(),
+        maxLines = 2,
+        placeholder = { Text(text = stringResource(R.string.offer_screen_title)) },
+    )
+}
+
+@Composable
+fun GiftPriceTextField(
+    price: String,
+    onPriceChange: (String) -> Unit,
+) {
+    OutlinedTextField(
+        value = price,
+        onValueChange = onPriceChange,
+        modifier = Modifier.fillMaxWidth(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        placeholder = { Text(text = stringResource(R.string.offer_screen_price)) },
+    )
+}
+
+@Composable
+fun GiftOzonLinkTextField(
+    ozonUrl: String,
+    onValueChange: (String) -> Unit,
+) {
+    OutlinedTextField(
+        value = ozonUrl,
+        onValueChange = onValueChange,
+        modifier = Modifier.fillMaxWidth(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
+        placeholder = { Text(text = stringResource(R.string.offer_screen_ozon_link)) },
+    )
+}
+
+@Composable
+fun GiftDescriptionTextField(
+    description: String,
+    onValueChange: (String) -> Unit,
+) {
+    OutlinedTextField(
+        value = description,
+        onValueChange = onValueChange,
+        modifier = Modifier.fillMaxWidth(),
+        minLines = 3,
+        maxLines = 4,
+        placeholder = { Text(text = stringResource(R.string.offer_screen_description)) },
+    )
+}
+
 @Suppress("DEPRECATION")
 @Composable
-fun ColumnScope.PickImageFromGallery(viewModel: OfferViewModel) {
+fun ColumnScope.PickImageFromGallery(
+    actualImage: Bitmap?,
+    onSetImageClick: (Bitmap?) -> Unit,
+) {
 
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(
@@ -123,7 +174,7 @@ fun ColumnScope.PickImageFromGallery(viewModel: OfferViewModel) {
                 val source = ImageDecoder.createSource(context.contentResolver, uri)
                 ImageDecoder.decodeBitmap(source)
             }
-            viewModel.setEvent(Event.OnSetImage(bitmap = bitmap))
+            onSetImageClick(bitmap)
         }
     }
 
@@ -131,18 +182,17 @@ fun ColumnScope.PickImageFromGallery(viewModel: OfferViewModel) {
         modifier = Modifier
             .fillMaxWidth()
             .weight(1f)
-            .padding(16.dp),
+            .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center,
     ) {
-        val image = viewModel.state.value.image
-        if (image == null) {
+        if (actualImage == null) {
             Button(onClick = { launcher.launch("image/*") }) {
-                Text(text = "Выбрать фото")
+                Text(text = stringResource(R.string.offer_screen_choose_photo))
             }
         } else {
             Row(modifier = Modifier.fillMaxSize()) {
                 Image(
-                    bitmap = image.asImageBitmap(),
+                    bitmap = actualImage.asImageBitmap(),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -158,18 +208,71 @@ fun ColumnScope.PickImageFromGallery(viewModel: OfferViewModel) {
                     verticalArrangement = Arrangement.Center,
                 ) {
                     Button(
-                        onClick = { viewModel.setEvent(Event.OnSetImage(null)) },
+                        onClick = { onSetImageClick(null) },
                     ) {
-                        Text(text = "Удалить")
+                        Text(text = stringResource(R.string.offer_screen_delete_photo))
                     }
                     Spacer(modifier = Modifier.height(32.dp))
                     Button(
                         onClick = { launcher.launch("image/*") },
                     ) {
-                        Text(text = "Выбрать другое фото")
+                        Text(text = stringResource(R.string.offer_screen_change_photo))
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun ScreenHeaderPreview() {
+    ScreenHeader()
+}
+
+@Composable
+@Preview(showBackground = true)
+fun GiftTitleTextFieldPreview() {
+    GiftTitleTextField(
+        title = "Title",
+        onTextChange = {},
+    )
+}
+
+@Composable
+@Preview(showBackground = true)
+fun GiftPriceTextFieldPreview() {
+    GiftPriceTextField(
+        price = "Title",
+        onPriceChange = {},
+    )
+}
+
+@Composable
+@Preview(showBackground = true)
+fun GiftOzonLinkTextFieldPreview() {
+    GiftOzonLinkTextField(
+        ozonUrl = "Title",
+        onValueChange = {},
+    )
+}
+
+@Composable
+@Preview(showBackground = true)
+fun GiftDescriptionTextFieldPreview() {
+    GiftDescriptionTextField(
+        description = "Title",
+        onValueChange = {},
+    )
+}
+
+@Composable
+@Preview(showBackground = true)
+fun PickImageFromGalleryPreview() {
+    Column {
+        PickImageFromGallery(
+            actualImage = null,
+            onSetImageClick = {},
+        )
     }
 }

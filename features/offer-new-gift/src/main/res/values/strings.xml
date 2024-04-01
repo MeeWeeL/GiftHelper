@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offer_screen_change_photo">Изменить</string>
+    <string name="offer_screen_delete_photo">Удалить</string>
+    <string name="offer_screen_choose_photo">Выбрать фото</string>
+    <string name="offer_screen_offer_gift_button_text">Предложить</string>
+    <string name="offer_screen_description">Описание</string>
+    <string name="offer_screen_ozon_link">Ссылка на Ozon</string>
+    <string name="offer_screen_price">Приблизительная цена</string>
+    <string name="offer_screen_title">Название</string>
+    <string name="offer_screen_offer_your_gift_idea">Предложить свою идею для подарка</string>
+</resources>
