@@ -1,8 +1,8 @@
 package com.meeweel.features.menu
 
-import com.meeweel.base.MviEffect
-import com.meeweel.base.MviEvent
-import com.meeweel.base.MviState
+import com.meeweel.core.base.MviEffect
+import com.meeweel.core.base.MviEvent
+import com.meeweel.core.base.MviState
 
 object MenuContract {
 

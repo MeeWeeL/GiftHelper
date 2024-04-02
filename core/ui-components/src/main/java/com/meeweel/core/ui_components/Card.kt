@@ -21,8 +21,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.meeweel.ui_base.shimmerEffect
-import com.meeweel.ui_base.theme.MeTheme
+import com.meeweel.core.ui_base.shimmerEffect
+import com.meeweel.core.ui_base.theme.MeTheme
 
 @Composable
 fun MeCard(

@@ -34,7 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.meeweel.core.navigation.NavigationState
 import com.meeweel.core.ui_components.MeCard
 import com.meeweel.domain.models.Gift
-import com.meeweel.ui_base.theme.MeTheme
+import com.meeweel.core.ui_base.theme.MeTheme
 import com.meeweel.core.ui_components.R as UiR
 
 @Composable

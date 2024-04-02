@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.meeweel.navigation"
+    namespace = "com.meeweel.core.navigation"
     compileSdk = rootProject.extra["compileSdk"] as Int
 
     defaultConfig {

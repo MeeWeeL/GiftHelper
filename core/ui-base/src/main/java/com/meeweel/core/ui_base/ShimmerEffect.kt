@@ -1,4 +1,4 @@
-package com.meeweel.ui_base
+package com.meeweel.core.ui_base
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable

@@ -1,7 +1,7 @@
 package com.meeweel.features.search
 
 import androidx.lifecycle.viewModelScope
-import com.meeweel.base.MviViewModel
+import com.meeweel.core.base.MviViewModel
 import com.meeweel.domain.api.GetGiftListUseCase
 import com.meeweel.domain.models.LoadResult
 import com.meeweel.features.search.SearchContract.Effect

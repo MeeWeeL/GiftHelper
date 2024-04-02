@@ -1,4 +1,4 @@
-package com.meeweel.ui_base.theme
+package com.meeweel.core.ui_base.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -10,11 +10,11 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.meeweel.ui_base.theme.color.DarkColorScheme
-import com.meeweel.ui_base.theme.color.LightColorScheme
-import com.meeweel.ui_base.theme.color.LocalColors
-import com.meeweel.ui_base.theme.color.MeColors
-import com.meeweel.ui_base.theme.typography.MeTypography
+import com.meeweel.core.ui_base.theme.color.DarkColorScheme
+import com.meeweel.core.ui_base.theme.color.LightColorScheme
+import com.meeweel.core.ui_base.theme.color.LocalColors
+import com.meeweel.core.ui_base.theme.color.MeColors
+import com.meeweel.core.ui_base.theme.typography.MeTypography
 
 @Composable
 fun MeTheme(

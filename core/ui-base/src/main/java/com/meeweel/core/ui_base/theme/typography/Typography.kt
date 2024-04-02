@@ -1,4 +1,4 @@
-package com.meeweel.ui_base.theme.typography
+package com.meeweel.core.ui_base.theme.typography
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

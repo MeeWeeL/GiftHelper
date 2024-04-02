@@ -1,4 +1,4 @@
-package com.meeweel.ui_base.theme.color
+package com.meeweel.core.ui_base.theme.color
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme

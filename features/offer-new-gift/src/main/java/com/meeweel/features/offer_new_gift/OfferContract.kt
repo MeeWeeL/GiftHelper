@@ -1,10 +1,9 @@
 package com.meeweel.features.offer_new_gift
 
 import android.graphics.Bitmap
-import androidx.core.graphics.BitmapCompat
-import com.meeweel.base.MviEffect
-import com.meeweel.base.MviEvent
-import com.meeweel.base.MviState
+import com.meeweel.core.base.MviEffect
+import com.meeweel.core.base.MviEvent
+import com.meeweel.core.base.MviState
 
 object OfferContract {
 

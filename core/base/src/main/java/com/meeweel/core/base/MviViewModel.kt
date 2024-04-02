@@ -1,4 +1,4 @@
-package com.meeweel.base
+package com.meeweel.core.base
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

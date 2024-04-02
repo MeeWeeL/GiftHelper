@@ -1,7 +1,7 @@
 package com.meeweel.features.offer_new_gift
 
 import androidx.lifecycle.viewModelScope
-import com.meeweel.base.MviViewModel
+import com.meeweel.core.base.MviViewModel
 import com.meeweel.domain.api.SendOfferUseCase
 import com.meeweel.features.offer_new_gift.OfferContract.Effect
 import com.meeweel.features.offer_new_gift.OfferContract.Event

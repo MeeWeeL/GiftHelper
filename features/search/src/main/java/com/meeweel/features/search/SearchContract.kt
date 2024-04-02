@@ -1,8 +1,8 @@
 package com.meeweel.features.search
 
-import com.meeweel.base.MviEffect
-import com.meeweel.base.MviEvent
-import com.meeweel.base.MviState
+import com.meeweel.core.base.MviEffect
+import com.meeweel.core.base.MviEvent
+import com.meeweel.core.base.MviState
 import com.meeweel.domain.models.Gift
 
 object SearchContract {

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.meeweel.gifthelper"
+    namespace = "com.meeweel.app"
     compileSdk = rootProject.extra["compileSdk"] as Int
 
     defaultConfig {
@@ -58,7 +58,6 @@ android {
 dependencies {
     implementation(project(":core:base"))
     implementation(project(":core:common"))
-    implementation(project(":core:di"))
     implementation(project(":core:navigation"))
     implementation(project(":core:ui-base"))
     implementation(project(":core:ui-components"))

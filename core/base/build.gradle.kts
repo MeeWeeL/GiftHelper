@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.meeweel.base"
+    namespace = "com.meeweel.core.base"
     compileSdk = rootProject.extra["compileSdk"] as Int
 
     defaultConfig {

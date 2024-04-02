@@ -1,6 +1,6 @@
 package com.meeweel.features.menu
 
-import com.meeweel.base.MviViewModel
+import com.meeweel.core.base.MviViewModel
 import com.meeweel.features.menu.MenuContract.Effect
 import com.meeweel.features.menu.MenuContract.Event
 import com.meeweel.features.menu.MenuContract.State

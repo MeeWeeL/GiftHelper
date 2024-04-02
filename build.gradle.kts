@@ -4,10 +4,10 @@ buildscript {
     project.extra.set("compileSdk", 34)
     project.extra.set("targetSdk", 34)
     project.extra.set("minSdk", 24)
-    project.extra.set("versionCode", 1)
-    project.extra.set("versionName", "0.1")
-    project.extra.set("javaVersion", JavaVersion.VERSION_17)
-    project.extra.set("jvmTarget", "17")
+    project.extra.set("versionCode", 1000)
+    project.extra.set("versionName", "0.01.000")
+    project.extra.set("javaVersion", JavaVersion.VERSION_18)
+    project.extra.set("jvmTarget", "18")
     project.extra.set("kotlinCompilerExtensionVersion", "1.5.1")
 
     dependencies {
