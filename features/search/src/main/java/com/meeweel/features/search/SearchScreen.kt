@@ -35,6 +35,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.meeweel.core.navigation.NavigationState
 import com.meeweel.core.ui_base.theme.MeTheme
 import com.meeweel.core.ui_components.MeCard
+import com.meeweel.core.ui_components.loadImage
 import com.meeweel.domain.models.Gift
 
 @Composable
@@ -105,9 +106,7 @@ fun GiftCard(gift: Gift) {
                 ) {
                     Image(
                         modifier = Modifier.fillMaxSize(),
-                        painter = rememberAsyncImagePainter(
-                            model = gift.imageUrl,
-                        ),
+                        painter = loadImage(model = gift.imageUrl),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                     )

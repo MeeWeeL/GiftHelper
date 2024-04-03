@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidxMaterial3Android)
     implementation(libs.accompanistController)
     debugImplementation(libs.bundles.composeDebug)
+    debugImplementation(libs.coilCompose)
 
     // Tests
     testImplementation(libs.junit)
