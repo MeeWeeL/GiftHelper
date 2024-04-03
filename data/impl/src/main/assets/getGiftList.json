@@ -4,7 +4,7 @@
     "title": "Шоколад",
     "description": "Ассорти шоколада БЕЗ САХАРА 18 плиток ШоколадБери",
     "price": 1500,
-    "imageUrl": "meeweel.pserver.ru/images/gifthelper/chocolate_berry.png",
+    "imageUrl": "https://meeweel.pserver.ru/images/gifthelper/chocolate_berry.png",
     "ozonUrl": "https://www.ozon.ru/product/assorti-shokolada-bez-sahara-18-plitok-shokoladberi-585856995/"
   },
   {
@@ -12,7 +12,7 @@
     "title": "Дичь какая-то",
     "description": "Подарочный мужской набор мясных деликатесов \"Дичь какая-то\" в подарок мужчине на день рождения, на юбилей",
     "price": 1500,
-    "imageUrl": "meeweel.pserver.ru/images/gifthelper/dich.png",
+    "imageUrl": "https://meeweel.pserver.ru/images/gifthelper/dich.png",
     "ozonUrl": "https://www.ozon.ru/product/podarochnyy-muzhskoy-nabor-myasnyh-delikatesov-dich-kakaya-to-v-podarok-muzhchine-na-den-rozhdeniya-722090619/"
   },
   {
@@ -36,7 +36,7 @@
     "title": "Набор для приготовления шоколада",
     "description": "Набор для приготовления молочного шоколада ChocoSet Milk",
     "price": 2400,
-    "imageUrl": "meeweel.pserver.ru/images/gifthelper/chocobox.png",
+    "imageUrl": "https://meeweel.pserver.ru/images/gifthelper/chocobox.png",
     "ozonUrl": null
   },
   {

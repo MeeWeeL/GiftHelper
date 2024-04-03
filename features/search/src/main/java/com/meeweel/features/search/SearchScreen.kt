@@ -24,18 +24,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
 import com.meeweel.core.navigation.NavigationState
+import com.meeweel.core.ui_base.theme.MeTheme
 import com.meeweel.core.ui_components.MeCard
 import com.meeweel.domain.models.Gift
-import com.meeweel.core.ui_base.theme.MeTheme
-import com.meeweel.core.ui_components.R as UiR
 
 @Composable
 fun SearchScreen(
@@ -105,8 +105,11 @@ fun GiftCard(gift: Gift) {
                 ) {
                     Image(
                         modifier = Modifier.fillMaxSize(),
-                        painter = painterResource(id = UiR.drawable.ic_soon),
+                        painter = rememberAsyncImagePainter(
+                            model = gift.imageUrl,
+                        ),
                         contentDescription = null,
+                        contentScale = ContentScale.Crop,
                     )
                 }
                 Spacer(modifier = Modifier.width(8.dp))

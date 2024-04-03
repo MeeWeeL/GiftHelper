@@ -47,6 +47,8 @@ dependencies {
     implementation(project(":core:base"))
     implementation(project(":core:ui-base"))
     implementation(project(":core:ui-components"))
+    implementation(project(":domain:models"))
+    implementation(project(":domain:api"))
 
     implementation(libs.core)
     implementation(libs.appcompat)
@@ -57,9 +59,8 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.accompanistController)
     implementation(libs.composeNavigation)
-    implementation(project(":domain:models"))
-    implementation(project(":domain:api"))
     debugImplementation(libs.bundles.composeDebug)
+    debugImplementation(libs.coilCompose)
 
     // Hilt
     implementation(libs.bundles.hilt)
