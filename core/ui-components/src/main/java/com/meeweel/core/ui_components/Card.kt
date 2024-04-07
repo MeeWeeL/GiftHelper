@@ -16,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -55,7 +56,14 @@ fun MeCard(
         ) {
             Box(
                 modifier = modifier
-                    .background(color = if (isLoading) Color.Transparent else backgroundColor ?: Color.White)
+                    .background(
+                        brush = Brush.linearGradient(
+                            colors = listOf(
+                                if (isLoading) Color.Transparent else backgroundColor ?: Color.White,
+                                Color.White,
+                            )
+                        )
+                    )
                     .shimmerEffect(isLoading)
                     .clickable(enabled = isClickable && !isLoading) { onClick?.let { it() } }
                     .padding(all = backgroundPadding),

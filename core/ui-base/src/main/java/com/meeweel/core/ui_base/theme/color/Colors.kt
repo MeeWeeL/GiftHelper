@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 
 val TextHeaderColor = Color(0xFF1A1E1E)
 val TextTitleColor = Color(0xFF1A1E1E)
-val CardBackground = Color(0xFFCFCFCF)
+val CardBackground = Color(0xFFECECEC)
 
 val LocalColors = staticCompositionLocalOf { LightColorScheme }
 

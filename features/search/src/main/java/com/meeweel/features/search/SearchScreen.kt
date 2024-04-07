@@ -1,8 +1,7 @@
 package com.meeweel.features.search
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,43 +16,72 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.rememberAsyncImagePainter
 import com.meeweel.core.navigation.NavigationState
 import com.meeweel.core.ui_base.theme.MeTheme
 import com.meeweel.core.ui_components.MeCard
+import com.meeweel.core.ui_components.OzonButton
 import com.meeweel.core.ui_components.loadImage
 import com.meeweel.domain.models.Gift
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     navigationState: NavigationState,
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
+
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+    val scope = rememberCoroutineScope()
+    var showBottomSheet by remember { mutableStateOf(false) }
+    var fullInfoGift: Gift? by remember { mutableStateOf(null) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 8.dp),
     ) {
-        SearchResult(viewModel.state.value.giftList)
+        SearchResult(
+            viewModel.state.value.giftList,
+            onItemClick = {
+                fullInfoGift = it
+                showBottomSheet = true
+                scope.launch { sheetState.expand() }
+            },
+        )
+    }
+
+    if (showBottomSheet) {
+        FullGiftInfoBottomSheet(
+            sheetState = sheetState,
+            gift = fullInfoGift,
+            onDismissRequest = { showBottomSheet = false }
+        )
     }
 }
 
 @Composable
-fun SearchResult(giftList: List<Gift>?) {
+fun SearchResult(giftList: List<Gift>?, onItemClick: (Gift) -> Unit) {
     if (giftList == null) {
         repeat(7) {
             MeCard(
@@ -73,7 +101,7 @@ fun SearchResult(giftList: List<Gift>?) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    GiftCard(gift = it)
+                    GiftCard(gift = it, onClick = { onItemClick(it) })
                 }
                 Spacer(modifier = Modifier.height(4.dp))
             }
@@ -82,11 +110,12 @@ fun SearchResult(giftList: List<Gift>?) {
 }
 
 @Composable
-fun GiftCard(gift: Gift) {
+fun GiftCard(gift: Gift, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp),
+            .height(120.dp)
+            .clickable { onClick() },
     ) {
         Card(
             modifier = Modifier.fillMaxSize(),
@@ -142,19 +171,8 @@ fun GiftCard(gift: Gift) {
                             text = "${gift.price} RUB",
                             style = MeTheme.typography.titleText,
                         )
-                        val context = LocalContext.current
-                        gift.ozonUrl?.let { url ->
-                            Button(
-                                onClick = {
-                                    val urlIntent = Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse(url)
-                                    )
-                                    context.startActivity(urlIntent)
-                                }
-                            ) {
-                                Text(text = stringResource(R.string.search_screen_ozon))
-                            }
+                        gift.ozonUri?.let { uri ->
+                            OzonButton(uri)
                         }
                     }
                 }
@@ -172,5 +190,5 @@ fun GiftCardPreview() {
         description = "Description",
         price = 1500,
     )
-    GiftCard(gift)
+    GiftCard(gift) {}
 }

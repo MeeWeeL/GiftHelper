@@ -3,6 +3,7 @@ package com.meeweel.data.impl
 import android.graphics.Bitmap
 import com.meeweel.core.common.toBase64String
 import com.meeweel.data.api.GiftRepository
+import com.meeweel.data.impl.ResultMapper.map
 import com.meeweel.data.impl.ResultMapper.toLoadResult
 import com.meeweel.data.impl.models.GiftOfferRequest
 import com.meeweel.domain.models.Gift
@@ -14,7 +15,7 @@ class GiftRepositoryImpl @Inject constructor(
 ) : GiftRepository {
 
     override suspend fun getGiftList(): LoadResult<List<Gift>> {
-        return api.getGiftList().toLoadResult()
+        return api.getGiftList().toLoadResult().map { toModel() }
     }
 
     override suspend fun sendOffer(
