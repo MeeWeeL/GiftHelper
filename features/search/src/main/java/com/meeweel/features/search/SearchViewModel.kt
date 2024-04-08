@@ -24,7 +24,6 @@ class SearchViewModel @Inject constructor(
             when (val result = getGiftList.invoke()) {
                 is LoadResult.Done -> setState { it.copy(giftList = result.result) }
                 is LoadResult.Error -> setEffect { Effect.ShowErrorMessage(result.message) }
-                else -> setEffect { Effect.ShowErrorMessage("Unknown error") }
             }
         }
     }

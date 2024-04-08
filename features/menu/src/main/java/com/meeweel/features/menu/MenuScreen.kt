@@ -1,6 +1,9 @@
 package com.meeweel.features.menu
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -20,11 +23,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.meeweel.core.navigation.NavItemOffer
 import com.meeweel.core.navigation.NavItemSearch
 import com.meeweel.core.navigation.NavigationState
+import com.meeweel.core.ui_base.theme.MeTheme
 import com.meeweel.core.ui_components.MeCard
 
 @Composable
@@ -65,25 +68,12 @@ fun ColumnScope.MenuBox(
                     .fillMaxWidth()
                     .weight(1f),
             ) {
-                MeCard(
-                    modifier = Modifier.fillMaxSize(),
+
+                MenuButton(
+                    icon = R.drawable.ic_search,
+                    text = R.string.menu_screen_find_gift_idea,
                     onClick = onFindClick,
-                ) {
-                    Row(
-                        modifier = Modifier.padding(4.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_search),
-                            contentDescription = null,
-                        )
-                        Spacer(modifier = Modifier.width(32.dp))
-                        Text(
-                            fontSize = 24.sp,
-                            text = stringResource(R.string.menu_screen_find_gift_idea),
-                        )
-                    }
-                }
+                )
             }
             Spacer(modifier = Modifier.height(16.dp))
             Row(
@@ -96,12 +86,11 @@ fun ColumnScope.MenuBox(
                         .fillMaxHeight()
                         .weight(1f),
                 ) {
-                    MeCard(
-                        modifier = Modifier.fillMaxSize(),
+                    MenuButton(
+                        icon = R.drawable.ic_offer_new_gift,
+                        text = R.string.menu_screen_offer_gift_idea,
                         onClick = onOfferClick,
-                    ) {
-                        Text(text = stringResource(R.string.menu_screen_offer_gift_idea))
-                    }
+                    )
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -111,6 +100,37 @@ fun ColumnScope.MenuBox(
                     .weight(1f),
             ) {}
             Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+}
+
+@Composable
+fun MenuButton(
+    @DrawableRes icon: Int,
+    @StringRes text: Int,
+    onClick: () -> Unit,
+) {
+    MeCard(
+        modifier = Modifier.fillMaxSize(),
+        onClick = onClick,
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Image(
+                modifier = Modifier
+                    .height(48.dp)
+                    .width(48.dp),
+                painter = painterResource(id = icon),
+                contentDescription = null,
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = stringResource(id = text),
+                style = MeTheme.typography.titleText,
+            )
         }
     }
 }
@@ -135,5 +155,16 @@ fun MenuBoxPreview() {
             .height(380.dp),
     ) {
         MenuBox({}, {})
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun MenuButtonPreview() {
+    Row(modifier = Modifier.height(120.dp)) {
+        MenuButton(
+            icon = R.drawable.ic_offer_new_gift,
+            text = R.string.menu_screen_offer_gift_idea,
+        ) {}
     }
 }
