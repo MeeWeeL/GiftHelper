@@ -19,8 +19,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.meeweel.core.ui_base.theme.MeTheme
-import com.meeweel.core.ui_components.MeCard
 import com.meeweel.core.ui_components.OzonButton
+import com.meeweel.core.ui_components.Price
+import com.meeweel.core.ui_components.Skeleton
 import com.meeweel.core.ui_components.loadImage
 import com.meeweel.domain.models.Gift
 
@@ -34,13 +35,13 @@ fun FullGiftInfoBottomSheet(
     ModalBottomSheet(
         sheetState = sheetState,
         onDismissRequest = onDismissRequest,
+        containerColor = MeTheme.colors.cardBackground,
     ) {
         if (gift == null) {
-            MeCard(
+            Skeleton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp),
-                isLoading = true,
             )
         } else {
             FullGiftInfo(gift)
@@ -78,10 +79,7 @@ fun FullGiftInfo(gift: Gift) {
                     .padding(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text(
-                    text = "${gift.price} RUB",
-                    style = MeTheme.typography.titleText,
-                )
+                Price(gift.price)
                 Spacer(modifier = Modifier.weight(1f))
                 gift.ozonUri?.let { uri ->
                     OzonButton(uri)

@@ -1,9 +1,7 @@
 package com.meeweel.features.search
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,9 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -29,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,6 +34,8 @@ import com.meeweel.core.navigation.NavigationState
 import com.meeweel.core.ui_base.theme.MeTheme
 import com.meeweel.core.ui_components.MeCard
 import com.meeweel.core.ui_components.OzonButton
+import com.meeweel.core.ui_components.Price
+import com.meeweel.core.ui_components.Skeleton
 import com.meeweel.core.ui_components.loadImage
 import com.meeweel.domain.models.Gift
 import kotlinx.coroutines.launch
@@ -82,11 +80,10 @@ fun SearchScreen(
 fun SearchResult(giftList: List<Gift>?, onItemClick: (Gift) -> Unit) {
     if (giftList == null) {
         repeat(7) {
-            MeCard(
+            Skeleton(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp),
-                isLoading = true,
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
@@ -109,69 +106,62 @@ fun SearchResult(giftList: List<Gift>?, onItemClick: (Gift) -> Unit) {
 
 @Composable
 fun GiftCard(gift: Gift, onClick: () -> Unit) {
-    Box(
+    MeCard(
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
-            .clickable { onClick() },
+            .height(120.dp),
+        cornerRadius = 8.dp,
+        onClick = onClick,
     ) {
-        Card(
-            modifier = Modifier.fillMaxSize(),
-            shape = RoundedCornerShape(8.dp),
-            colors = CardDefaults.cardColors(containerColor = MeTheme.colors.cardBackground)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(180.dp),
         ) {
-            Row(
+            MeCard(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(180.dp),
+                    .fillMaxHeight()
+                    .width(120.dp),
+                cornerRadius = 8.dp,
+                backgroundColor = Color.Transparent,
             ) {
-                Card(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .width(120.dp),
-                    shape = RoundedCornerShape(0.dp),
+                Image(
+                    modifier = Modifier.fillMaxSize(),
+                    painter = loadImage(model = gift.imageUrl),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                )
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(all = 4.dp),
+            ) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    style = MeTheme.typography.titleText,
+                    text = gift.title,
+                    maxLines = 1,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = gift.description,
+                    style = MeTheme.typography.primaryText,
+                    minLines = 2,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Image(
-                        modifier = Modifier.fillMaxSize(),
-                        painter = loadImage(model = gift.imageUrl),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                    )
-                }
-                Spacer(modifier = Modifier.width(8.dp))
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(all = 4.dp),
-                ) {
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        style = MeTheme.typography.titleText,
-                        text = gift.title,
-                        maxLines = 1,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = gift.description,
-                        style = MeTheme.typography.primaryText,
-                        minLines = 2,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Row(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                    ) {
-                        Text(
-                            text = "${gift.price} RUB",
-                            style = MeTheme.typography.titleText,
-                        )
-                        gift.ozonUri?.let { uri ->
-                            OzonButton(uri)
-                        }
+                    Price(gift.price)
+                    gift.ozonUri?.let { uri ->
+                        OzonButton(uri)
                     }
                 }
             }

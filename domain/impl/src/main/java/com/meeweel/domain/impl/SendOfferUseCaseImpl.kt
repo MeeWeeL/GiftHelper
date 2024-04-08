@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class SendOfferUseCaseImpl @Inject constructor(
     private val giftRepository: GiftRepository,
-): SendOfferUseCase {
+) : SendOfferUseCase {
 
     override suspend fun invoke(
         title: String,
@@ -22,7 +22,7 @@ class SendOfferUseCaseImpl @Inject constructor(
             description,
             price,
             ozonUrl,
-        image
-            )
+            image
+        )
     }
 }

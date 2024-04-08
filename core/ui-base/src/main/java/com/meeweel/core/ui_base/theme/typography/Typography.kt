@@ -29,6 +29,12 @@ val SecondaryText = TextStyle(
     fontSize = 16.sp,
     lineHeight = 18.sp,
 )
+val PriceText = TextStyle(
+    fontFamily = null,
+    fontWeight = FontWeight.Light,
+    fontSize = 16.sp,
+    lineHeight = 18.sp,
+)
 
 object MeTypography {
 
@@ -37,4 +43,5 @@ object MeTypography {
     val titleText: TextStyle = TitleText
     val primaryText: TextStyle = PrimaryText
     val secondaryText: TextStyle = SecondaryText
+    val priceText: TextStyle = PriceText
 }

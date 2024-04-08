@@ -1,3 +1,5 @@
+import java.util.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.library)
@@ -18,13 +20,15 @@ android {
     }
 
     buildTypes {
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "BASE_URL", "\"https://9999\"")
+            buildConfigField("String", "BASE_URL", properties.getProperty("baseUrl"))
         }
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://9999\"")
+            buildConfigField("String", "BASE_URL", properties.getProperty("baseUrl"))
         }
     }
     compileOptions {

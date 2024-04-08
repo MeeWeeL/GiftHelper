@@ -9,9 +9,9 @@ import retrofit2.http.POST
 
 interface GiftApi {
 
-    @GET("giftHelper/api/getGiftList")
+    @GET("giftHelper/getGiftList")
     suspend fun getGiftList(): Response<List<GiftResponse>>
 
-    @POST("giftHelper/api/sendGiftOffer")
+    @POST("giftHelper/sendGiftOffer")
     suspend fun sendGiftOffer(@Body giftOffer: GiftOfferRequest): Response<Unit>
 }

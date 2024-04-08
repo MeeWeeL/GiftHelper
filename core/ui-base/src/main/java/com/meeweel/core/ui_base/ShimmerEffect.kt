@@ -17,35 +17,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
 
-fun Modifier.shimmerEffect(ifLoading: Boolean = true): Modifier = composed {
-    if (ifLoading) {
-        var size by remember {
-            mutableStateOf(IntSize.Zero)
-        }
-        val transition = rememberInfiniteTransition(label = "")
-        val startOffsetX by transition.animateFloat(
-            initialValue = -2 * size.width.toFloat(),
-            targetValue = 2 * size.width.toFloat(),
-            animationSpec = infiniteRepeatable(
-                animation = tween(1500),
+fun Modifier.shimmerEffect(): Modifier = composed {
+    var size by remember {
+        mutableStateOf(IntSize.Zero)
+    }
+    val transition = rememberInfiniteTransition(label = "")
+    val startOffsetX by transition.animateFloat(
+        initialValue = -2 * size.width.toFloat(),
+        targetValue = 2 * size.width.toFloat(),
+        animationSpec = infiniteRepeatable(
+            animation = tween(1500),
+        ),
+        label = "",
+    )
+    background(color = Color.Transparent)
+    background(
+        brush = Brush.linearGradient(
+            colors = listOf(
+                Color(0x77DEE9DE),
+                Color(0x7799A599),
+                Color(0x77DEE9DE),
             ),
-            label = "",
+            start = Offset(startOffsetX, 0f),
+            end = Offset(startOffsetX + size.width.toFloat(), 90f),
         )
-        background(color = Color.Transparent)
-        background(
-            brush = Brush.linearGradient(
-                colors = listOf(
-                    Color(0x77DEE9DE),
-                    Color(0x7799A599),
-                    Color(0x77DEE9DE),
-                ),
-                start = Offset(startOffsetX, 0f),
-                end = Offset(startOffsetX + size.width.toFloat(), 90f),
-            )
-        ).onGloballyPositioned {
-            size = it.size
-        }
-    } else {
-        this
+    ).onGloballyPositioned {
+        size = it.size
     }
 }

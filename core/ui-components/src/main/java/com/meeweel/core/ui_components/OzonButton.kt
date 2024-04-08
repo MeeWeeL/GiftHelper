@@ -19,9 +19,9 @@ import androidx.compose.ui.unit.dp
 fun OzonButton(uri: Uri) {
     val context = LocalContext.current
     Button(
-        modifier = Modifier.height(22.dp),
+        modifier = Modifier.height(24.dp),
         contentPadding = PaddingValues(all = 0.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4848FA)),
         onClick = {
             val urlIntent = Intent(
                 Intent.ACTION_VIEW,

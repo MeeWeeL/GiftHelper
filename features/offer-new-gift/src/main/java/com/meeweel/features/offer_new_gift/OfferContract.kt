@@ -9,10 +9,10 @@ object OfferContract {
 
     sealed interface Event : MviEvent {
         data object OnSendOffer : Event
-        data class OnChangeTitle(val value: String, ) : Event
-        data class OnChangeDescription(val value: String, ) : Event
-        data class OnChangePrice(val value: String, ) : Event
-        data class OnChangeOzonUrl(val value: String, ) : Event
+        data class OnChangeTitle(val value: String) : Event
+        data class OnChangeDescription(val value: String) : Event
+        data class OnChangePrice(val value: String) : Event
+        data class OnChangeOzonUrl(val value: String) : Event
         data class OnSetImage(val bitmap: Bitmap?) : Event
     }
 
