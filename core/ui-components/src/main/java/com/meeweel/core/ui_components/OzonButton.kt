@@ -2,10 +2,12 @@ package com.meeweel.core.ui_components
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,7 +20,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun OzonButton(uri: Uri) {
     val context = LocalContext.current
-    Button(
+    ElevatedButton(
         modifier = Modifier.height(24.dp),
         contentPadding = PaddingValues(all = 0.dp),
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4848FA)),
@@ -37,5 +39,7 @@ fun OzonButton(uri: Uri) {
 @Composable
 @Preview(showBackground = true)
 fun OzonButtonPreview() {
-    OzonButton(Uri.parse(""))
+    Box(modifier = Modifier.padding(16.dp)) {
+        OzonButton(Uri.parse(""))
+    }
 }

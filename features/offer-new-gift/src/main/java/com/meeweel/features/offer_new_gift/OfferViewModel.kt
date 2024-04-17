@@ -3,6 +3,7 @@ package com.meeweel.features.offer_new_gift
 import androidx.lifecycle.viewModelScope
 import com.meeweel.core.base.MviViewModel
 import com.meeweel.domain.api.SendOfferUseCase
+import com.meeweel.domain.models.LoadResult
 import com.meeweel.features.offer_new_gift.OfferContract.Effect
 import com.meeweel.features.offer_new_gift.OfferContract.Event
 import com.meeweel.features.offer_new_gift.OfferContract.State
@@ -32,13 +33,24 @@ class OfferViewModel @Inject constructor(
     private fun handleSendOffer() {
         viewModelScope.launch(Dispatchers.IO) {
             val state = state.value
-            sendOffer.invoke(
+            val result = sendOffer.invoke(
                 title = state.title,
                 description = state.description,
-                price = state.price.toInt(),
-                ozonUrl = state.ozonUrl,
+                price = state.price.ifBlank { "0" }.toInt(),
+                ozonUrl = state.ozonUrl.ifBlank { null },
                 image = state.image,
             )
+            when (result) {
+                is LoadResult.Done -> setEffect { Effect.ShowOfferSentMessage }
+                is LoadResult.Error -> handleError(result)
+            }
+        }
+    }
+
+    private fun handleError(e: LoadResult.Error) {
+        when (e.code) {
+            406 -> setEffect { Effect.ShowWrongFieldMessage(e.message) }
+            else -> setEffect { Effect.ShowUnknownErrorMessage }
         }
     }
 }

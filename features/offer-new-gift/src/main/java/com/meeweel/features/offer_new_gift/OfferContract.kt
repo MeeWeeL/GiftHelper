@@ -25,8 +25,9 @@ object OfferContract {
     ) : MviState
 
     sealed interface Effect : MviEffect {
-        data object ShowOfferSent : Effect
-        data class ShowErrorMessage(val message: String) : Effect
+        data object ShowOfferSentMessage : Effect
+        data object ShowUnknownErrorMessage : Effect
+        data class ShowWrongFieldMessage(val message: String) : Effect
         sealed interface Navigate : Effect
     }
 }

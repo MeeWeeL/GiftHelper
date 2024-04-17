@@ -35,7 +35,7 @@ fun FullGiftInfoBottomSheet(
     ModalBottomSheet(
         sheetState = sheetState,
         onDismissRequest = onDismissRequest,
-        containerColor = MeTheme.colors.cardBackground,
+        containerColor = MeTheme.colors.dialogBackground,
     ) {
         if (gift == null) {
             Skeleton(

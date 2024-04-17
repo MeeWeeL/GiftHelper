@@ -10,10 +10,10 @@ object ResultMapper {
             isSuccessful -> {
                 body()?.let {
                     LoadResult.Done(it)
-                } ?: LoadResult.Error(message())
+                } ?: LoadResult.Error(message(), code())
             }
 
-            else -> LoadResult.Error(message())
+            else -> LoadResult.Error(message(), code())
         }
     }
 

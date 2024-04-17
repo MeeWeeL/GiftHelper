@@ -21,10 +21,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
@@ -38,12 +43,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.meeweel.core.base.collectInLaunchedEffect
+import com.meeweel.core.ui_components.MeDialog
 import com.meeweel.features.offer_new_gift.OfferContract.Event
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun OfferScreen(
     viewModel: OfferViewModel = hiltViewModel(),
 ) {
+    ObserveOnEffects(viewModel.effect)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -77,13 +86,55 @@ fun OfferScreen(
             onSetImageClick = { viewModel.setEvent(Event.OnSetImage(it)) },
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Button(
+        ElevatedButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp),
             onClick = { viewModel.setEvent(Event.OnSendOffer) }) {
             Text(text = stringResource(R.string.offer_screen_offer_gift_button_text))
         }
+    }
+}
+
+@Composable
+fun ObserveOnEffects(
+    screenEffect: Flow<OfferContract.Effect>,
+) {
+    val coroutineScope = rememberCoroutineScope()
+    var openDialog by remember { mutableStateOf(false) }
+    var dialogTitle by remember { mutableStateOf("") }
+    var dialogText by remember { mutableStateOf("") }
+
+    screenEffect.collectInLaunchedEffect { effect ->
+        when (effect) {
+            OfferContract.Effect.ShowOfferSentMessage -> {
+                dialogTitle = "Ура!"
+                dialogText = "Предложение отправлено успешно.\nСпасибо)"
+                openDialog = true
+            }
+
+            OfferContract.Effect.ShowUnknownErrorMessage -> {
+                dialogTitle = "Что-то пошло не так"
+                dialogText = "Неизвестная ошибка"
+                openDialog = true
+            }
+
+            is OfferContract.Effect.ShowWrongFieldMessage -> {
+                dialogTitle = "Что-то пошло не так"
+                dialogText = effect.message.ifBlank { "Ошибка заполнения полей" }
+                openDialog = true
+            }
+
+            is OfferContract.Effect.Navigate -> {
+            }
+        }
+    }
+    if (openDialog) {
+        MeDialog(
+            title = dialogTitle,
+            text = dialogText,
+            onDismissRequest = { openDialog = false },
+        )
     }
 }
 
@@ -185,7 +236,7 @@ fun ColumnScope.PickImageFromGallery(
         contentAlignment = Alignment.Center,
     ) {
         if (actualImage == null) {
-            Button(onClick = { launcher.launch("image/*") }) {
+            ElevatedButton(onClick = { launcher.launch("image/*") }) {
                 Text(text = stringResource(R.string.offer_screen_choose_photo))
             }
         } else {
@@ -206,13 +257,13 @@ fun ColumnScope.PickImageFromGallery(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-                    Button(
+                    ElevatedButton(
                         onClick = { onSetImageClick(null) },
                     ) {
                         Text(text = stringResource(R.string.offer_screen_delete_photo))
                     }
                     Spacer(modifier = Modifier.height(32.dp))
-                    Button(
+                    ElevatedButton(
                         onClick = { launcher.launch("image/*") },
                     ) {
                         Text(text = stringResource(R.string.offer_screen_change_photo))

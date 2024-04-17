@@ -14,7 +14,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "GiftHelper"
-include(":app")
+include(":main-app:app")
 include(":core:ui-base")
 include(":core:ui-components")
 include(":core:base")

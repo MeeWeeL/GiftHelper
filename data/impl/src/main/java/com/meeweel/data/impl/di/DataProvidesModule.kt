@@ -25,5 +25,5 @@ object DataProvidesModule {
     @Provides
     fun provideGiftApi(
         retrofitFactory: RetrofitFactory,
-    ): GiftApi = retrofitFactory.createApi(isMock = false)
+    ): GiftApi = retrofitFactory.createApi(isMock = true)
 }

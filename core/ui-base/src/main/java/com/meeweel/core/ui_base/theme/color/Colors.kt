@@ -8,7 +8,10 @@ import androidx.compose.ui.graphics.Color
 
 val TextHeaderColor = Color(0xFF1A1E1E)
 val TextTitleColor = Color(0xFF1A1E1E)
+val TextRedColor = Color(0xFF922D2D)
 val CardBackground = Color(0xFFECECEC)
+val DialogBackground = Color(0xFFECECEC)
+val LightBlue = Color(0xFFE0E8FF)
 
 val LocalColors = staticCompositionLocalOf { LightColorScheme }
 
@@ -33,5 +36,8 @@ data class MeColors(
     val material: ColorScheme,
     val headerText: Color = TextHeaderColor,
     val titleText: Color = TextTitleColor,
+    val redText: Color = TextRedColor,
     val cardBackground: Color = CardBackground,
+    val dialogBackground: Color = DialogBackground,
+    val lightBlue: Color = LightBlue,
 )

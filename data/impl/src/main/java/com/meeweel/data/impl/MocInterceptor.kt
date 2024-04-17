@@ -22,7 +22,11 @@ internal class MockInterceptor(private val context: Context) : Interceptor {
         val responseString: String? = getJsonDataFromAsset(
             context,
             fileName = query?.let {
-                "$path/getGiftList"
+                when (path) {
+                    "getGiftList" -> "$path/getGiftList"
+                    "sendGiftOffer" -> ""
+                    else -> path
+                }
             } ?: path
         )
         // Create the response
@@ -34,17 +38,17 @@ internal class MockInterceptor(private val context: Context) : Interceptor {
             .protocol(Protocol.HTTP_1_1)
         responseString?.let {
             responseBuilder.body(it.toByteArray().toResponseBody("application/json".toMediaType()))
-        }
-
+        } ?: responseBuilder.code(406).message("Mock messsage 406")
 
         return responseBuilder.build()
     }
 
-    private fun getJsonDataFromAsset(context: Context, fileName: String): String? =
-        try {
+    private fun getJsonDataFromAsset(context: Context, fileName: String): String? {
+        return try {
             context.assets.open("$fileName.json").bufferedReader().use { it.readText() }
         } catch (ioException: IOException) {
             ioException.printStackTrace()
             null
         }
+    }
 }
