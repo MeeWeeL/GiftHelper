@@ -130,6 +130,7 @@ junitJupiterApi = { group = "org.junit.jupiter", name = "junit-jupiter-api", ver
 junitJupiterParams = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junitJupiter" }
 junitJupiterEngine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junitJupiter" }
 junitJupiterVintageEngine = { group = "org.junit.jupiter", name = "junit-vintage-engine", version.ref = "junitJupiter" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 [bundles]
 lifecycle = ["lifecycleRuntime", "lifecycleLivedata", "lifecycleViewmodel"]
